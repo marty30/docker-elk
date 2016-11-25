@@ -17,6 +17,7 @@ services:
       - ./logstash/config:/etc/logstash/conf.d
     ports:
       - "5000:5000"
+      - "5044:5044"
     networks:
       - docker_elk
     depends_on:
@@ -31,6 +32,16 @@ services:
       - docker_elk
     depends_on:
       - elasticsearch
+  filebeat:
+    build: filebeat/
+    volumes:
+      - ./filebeat/filebeat-config/filebeat.yml:/filebeat/filebeat.yml
+      - /var/log:/var/log
+      - /var/lib/docker:/var/lib/docker
+    depends_on:
+      - logstash
+    networks:
+      - docker_elk
 
 networks:
   docker_elk:
