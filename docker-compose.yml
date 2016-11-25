@@ -6,6 +6,8 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    volumes:
+      - "/mnt/drive1/elk-data/elasticsearch-data:/usr/share/elasticsearch/data"
     environment:
       ES_JAVA_OPTS: "-Xms1g -Xmx1g"
     networks:
